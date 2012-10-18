@@ -77,9 +77,6 @@ public class Formulaire_Pilote extends JFrame implements ActionListener{
 			this.panhaut.setLayout(new BorderLayout());
 			this.panhaut.add(btnAfficher, BorderLayout.CENTER);
 			
-			
-			
-			if(i==1){
 				try {
 					Class.forName("org.postgresql.Driver");
 					Connection connexion = DriverManager.getConnection("jdbc:postgresql:bdmohamed", "amohamed", "jasmine95");
@@ -89,6 +86,9 @@ public class Formulaire_Pilote extends JFrame implements ActionListener{
 					JLabel jnum = new JLabel("Num Pilote");
 					JLabel jnom = new JLabel("Nom Pilote");
 					JLabel jprenom = new JLabel("Prenom Pilote");
+					panBas.add(jnum);
+					panBas.add(jnom);
+					panBas.add(jprenom);
 					while (rs.next()) {
 						
 						String num = rs.getString("numpilote");
@@ -103,6 +103,7 @@ public class Formulaire_Pilote extends JFrame implements ActionListener{
 						panBas.add(lblnom);
 						panBas.add(lblprenom);
 						}
+					
 						rs.close() ;
 
 				} 
@@ -117,10 +118,8 @@ public class Formulaire_Pilote extends JFrame implements ActionListener{
 					
 					System.out.println("Fait !");
 				}
-				
-			}
 			
-			this.panGlobal.add(panhaut, BorderLayout.NORTH);
+			//this.panGlobal.add(panhaut, BorderLayout.NORTH);
 			this.panGlobal.add(panBas, BorderLayout.CENTER);
 			
 			this.getContentPane().add(panGlobal);
@@ -220,14 +219,14 @@ public class Formulaire_Pilote extends JFrame implements ActionListener{
 		}
 		if(e.getSource() == ajoutPilote){
 			int i = 0;
-			this.setVisible(false);
+			this.dispose();
 			new Formulaire_Pilote(i);
 		}
 		if(e.getSource() == affichePilote){
 			System.out.println("Affiche");
 			int i = 1;
-			this.setVisible(false);
-			new AffichePilote(i);
+			this.dispose();
+			new Formulaire_Pilote(i);
 			
 	
 		}
