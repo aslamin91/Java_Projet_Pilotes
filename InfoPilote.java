@@ -65,6 +65,16 @@ public class InfoPilote extends JFrame implements ActionListener {
 		menu.add(menuPilote);
 		this.setJMenuBar(menu);
 		
+		this.btnpremier = new JButton("Premier");
+		this.btnprecedent = new JButton("Précédent");
+		this.btnsuivant = new JButton("Suivant");
+		this.btndernier = new JButton("Dernier");
+		
+		panhaut.add(btnpremier);
+		panhaut.add(btnprecedent);
+		panhaut.add(btnsuivant);
+		panhaut.add(btndernier);
+		
 		
 		this.setTitle("Affichage Un Pilote");
 		this.setLocation(450, 300);

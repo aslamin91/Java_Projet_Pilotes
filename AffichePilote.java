@@ -52,6 +52,7 @@ public class AffichePilote extends JFrame implements ActionListener{
 		
 		this.ajoutPilote.addActionListener(this);
 		this.affichePilote.addActionListener(this);
+		this.afficheUnPilote.addActionListener(this);
 		
 		menuPilote.add(ajoutPilote);
 		menuPilote.add(affichePilote);
