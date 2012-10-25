@@ -15,6 +15,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 
@@ -29,6 +31,7 @@ public class Formulaire_Pilote extends JFrame implements ActionListener{
 	private JMenu menuPilote;
 	private JMenuItem ajoutPilote;
 	private JMenuItem affichePilote;
+	private JMenuItem afficheUnPilote;
 	
 	private JLabel lblnom;
 	private JLabel lblprenom;
@@ -40,11 +43,11 @@ public class Formulaire_Pilote extends JFrame implements ActionListener{
 	private JButton btnAfficher;
 	
 	
-	public Formulaire_Pilote(int i){
+	public Formulaire_Pilote(){
 		
 		
 		
-		if(i==1){
+		/*if(i==1){
 			
 			this.panGlobal = new JPanel();
 			this.panhaut = new JPanel();
@@ -69,8 +72,8 @@ public class Formulaire_Pilote extends JFrame implements ActionListener{
 			this.setTitle("Affichage Pilote");
 			this.setLocation(450, 300);
 			this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-			this.setSize(350, 300);
-			this.setResizable(false);
+			this.setSize(500, 300);
+			this.setResizable(true);
 			
 			this.btnAfficher.addActionListener(this);
 			
@@ -81,31 +84,47 @@ public class Formulaire_Pilote extends JFrame implements ActionListener{
 					Class.forName("org.postgresql.Driver");
 					Connection connexion = DriverManager.getConnection("jdbc:postgresql:bdmohamed", "amohamed", "jasmine95");
 					Statement st = connexion.createStatement();
+					Statement st2 = connexion.createStatement();
 					ResultSet rs = st.executeQuery("SELECT * FROM pilotes");
+					ResultSet rs2 = st2.executeQuery("SELECT * FROM pilotes");
 					
-					JLabel jnum = new JLabel("Num Pilote");
-					JLabel jnom = new JLabel("Nom Pilote");
-					JLabel jprenom = new JLabel("Prenom Pilote");
-					panBas.add(jnum);
-					panBas.add(jnom);
-					panBas.add(jprenom);
+					//JLabel jnum = new JLabel("Num Pilote");
+					//JLabel jnom = new JLabel("Nom Pilote");
+					//JLabel jprenom = new JLabel("Prenom Pilote");
+					//panBas.add(jnum);
+					//panBas.add(jnom);
+					//panBas.add(jprenom);
+					int j = 0;
+					int t = 0;
+					//Recupère une variable t qui sera le nombre de ligne récupéré
+					while(rs2.next()){
+						
+						t++;
+					}
+					Object[][] data = new Object[t][3];
+					String title[] = {"Num Pilote", "Nom Pilote", "Prenom Pilote"};
 					while (rs.next()) {
 						
 						String num = rs.getString("numpilote");
 						String nom = rs.getString("nompilote");
 						String prenom = rs.getString("prenompilote");
-						JLabel lblnum = new JLabel(num);
-						JLabel lblnom = new JLabel(nom);
-						JLabel lblprenom = new JLabel(prenom);
-						panBas.setLayout(new GridLayout(rs.getFetchSize(),3));
+						//JLabel lblnum = new JLabel(num);
+						//JLabel lblnom = new JLabel(nom);
+						//JLabel lblprenom = new JLabel(prenom);
+						//panBas.setLayout(new GridLayout(rs.getFetchSize(),3));
 						System.out.println("NumPilote : "+num+" Nom : "+nom+" Prenom : "+prenom);
-						panBas.add(lblnum);
-						panBas.add(lblnom);
-						panBas.add(lblprenom);
+						//panBas.add(lblnum);
+						//panBas.add(lblnom);
+						//panBas.add(lblprenom);
+						data[j][0] = num;
+						data[j][1] = nom;
+						data[j][2] = prenom;
+						j++;
 						}
 					
 						rs.close() ;
-
+						JTable tab = new JTable(data, title);
+						this.getContentPane().add(new JScrollPane(tab));
 				} 
 				catch (ClassNotFoundException erreur) {
 					
@@ -120,12 +139,13 @@ public class Formulaire_Pilote extends JFrame implements ActionListener{
 				}
 			
 			//this.panGlobal.add(panhaut, BorderLayout.NORTH);
-			this.panGlobal.add(panBas, BorderLayout.CENTER);
 			
-			this.getContentPane().add(panGlobal);
+			//this.panGlobal.add(panBas, BorderLayout.CENTER);
+			
+			//this.getContentPane().add(panGlobal);
 			this.setVisible(true);
 		}
-		else{
+		else{*/
 		this.panGlobal = new JPanel();
 		this.panhaut = new JPanel();
 		this.panBas = new JPanel();
@@ -134,12 +154,15 @@ public class Formulaire_Pilote extends JFrame implements ActionListener{
 		this.menuPilote = new JMenu("Pilote");
 		this.ajoutPilote = new JMenuItem("Ajouter un Pilote");
 		this.affichePilote = new JMenuItem("Affiche les Pilotes");
+		this.afficheUnPilote = new JMenuItem("Affiche les Pilotes");
 		
 		this.ajoutPilote.addActionListener(this);
 		this.affichePilote.addActionListener(this);
+		this.afficheUnPilote.addActionListener(this);
 		
 		menuPilote.add(ajoutPilote);
 		menuPilote.add(affichePilote);
+		menuPilote.add(afficheUnPilote);
 		
 		menu.add(menuPilote);
 		this.setJMenuBar(menu);
@@ -189,7 +212,7 @@ public class Formulaire_Pilote extends JFrame implements ActionListener{
 		
 		
 		
-	}
+	//}
 
 
 	
@@ -218,16 +241,22 @@ public class Formulaire_Pilote extends JFrame implements ActionListener{
 			}
 		}
 		if(e.getSource() == ajoutPilote){
-			int i = 0;
+			
 			this.dispose();
-			new Formulaire_Pilote(i);
+			new Formulaire_Pilote();
 		}
 		if(e.getSource() == affichePilote){
 			System.out.println("Affiche");
-			int i = 1;
-			this.dispose();
-			new Formulaire_Pilote(i);
 			
+			this.dispose();
+			new AffichePilote();
+			
+	
+		}
+		if(e.getSource() == afficheUnPilote){
+			System.out.println("AfficheP");
+			this.dispose();
+			new InfoPilote();
 	
 		}
 		

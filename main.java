@@ -3,7 +3,7 @@ import java.sql.*;
 public class main {
 
 	public static void main(String[] args) {
-		Formulaire_Pilote Unformulaire = new Formulaire_Pilote(0);
+		Formulaire_Pilote Unformulaire = new Formulaire_Pilote();
 		/*try {
 			Class.forName("org.postgresql.Driver");
 			Connection connexion = DriverManager.getConnection("jdbc:postgresql:bdmohamed", "amohamed", "jasmine95");
